@@ -55,21 +55,12 @@ void Game::Init()
 {
 	LoadAssets();
 
-	Factory::MakePlayer(m_Entities);
+	Factory::MakePlayer(m_Entities, GameConstants::Player::startPos);
 
 	for(int i = 0; i < 10; ++i)
-		Factory::MakeBush(m_Entities);
-
-	// Move this to a system
-
-	auto view = m_Entities.view<Bush, Position>();
-	for(const entt::entity entity : view)
-	{
-		auto& pos = view.get<Position>(entity).pos;
-
-		pos.x = rand() % GameConstants::Game::Width;
-		pos.y = rand() % GameConstants::Game::Height;
-	}
+		Factory::MakeBush(m_Entities, sf::Vector2f(
+			rand() % GameConstants::Game::Width,
+			rand() % GameConstants::Game::Height));
 }
 
 void Game::HandleInput()
@@ -91,6 +82,7 @@ void Game::HandleInput()
 				case sf::Keyboard::Escape:
 					m_Window.close();
 					break;
+
 				default:
 					break;
 			}
