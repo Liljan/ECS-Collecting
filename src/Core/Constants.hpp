@@ -2,12 +2,16 @@
 
 #include <SFML/System/Vector2.hpp>
 
+#include "Util/DataTypes.hpp"
+
 namespace GameConstants
 {
 	namespace Game
 	{
 		constexpr int Width = 1280;
 		constexpr int Height = 720;
+
+		constexpr uint SpriteBatchSize = 100;
 	}
 
 	namespace Player

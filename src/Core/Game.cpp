@@ -22,6 +22,8 @@ Game::Game()
 	m_Window.create(sf::VideoMode(GameConstants::Game::Width, GameConstants::Game::Height), "ECS - Collecting", sf::Style::Default);
 	m_Window.setFramerateLimit(60);
 	m_Window.setVerticalSyncEnabled(true);
+
+	m_SpriteBatch.Reserve(GameConstants::Game::SpriteBatchSize);
 }
 
 void Game::Run()
@@ -111,13 +113,18 @@ void Game::Render()
 		constexpr int w = 16;
 		constexpr int h = 16;
 
-		sf::Sprite sprite;
-		sprite.setTexture(m_ObjectTexture);
-		sprite.setTextureRect(sf::IntRect(x * w, y * h, w, h));
-		sprite.setPosition(pos);
+		sf::Transform t;
+		t.translate(pos);
 
-		m_Window.draw(sprite);
+		m_SpriteBatch.Add(t, sf::IntRect(x * w, y * h, w, h));
 	}
 
+	sf::RenderStates state(&m_ObjectTexture);
+	m_SpriteBatch.draw(m_Window, state);
+
 	m_Window.display();
+
+	// Post-frame clean-up
+
+	m_SpriteBatch.Clear();
 }

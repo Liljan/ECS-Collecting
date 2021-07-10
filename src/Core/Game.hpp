@@ -5,6 +5,8 @@
 
 #include <EnTT/entt.hpp>
 
+#include "Graphics/SpriteBatch.hpp"
+
 class Game
 {
 public:
@@ -28,5 +30,6 @@ private:
 	sf::RenderWindow m_Window;
 	entt::registry m_Entities;
 
+	SpriteBatch m_SpriteBatch;
 	sf::Texture m_ObjectTexture;
 };
