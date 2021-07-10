@@ -5,11 +5,16 @@
 // Remove later...?
 #include <Core/Constants.hpp>
 
+// Components
 #include "Component/Position.hpp"
 #include "Component/Sprite.hpp"
 
+// Prefabs
 #include "Prefabs/Player.hpp"
 #include "Prefabs/Bush.hpp"
+
+// Systems
+#include "System/Render.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -19,11 +24,11 @@
 
 Game::Game()
 {
-	m_Window.create(sf::VideoMode(GameConstants::Game::Width, GameConstants::Game::Height), "ECS - Collecting", sf::Style::Default);
+	m_Window.create(sf::VideoMode(Constants::Game::Width, Constants::Game::Height), "ECS - Collecting", sf::Style::Default);
 	m_Window.setFramerateLimit(60);
 	m_Window.setVerticalSyncEnabled(true);
 
-	m_SpriteBatch.Reserve(GameConstants::Game::SpriteBatchSize);
+	m_SpriteBatch.Reserve(Constants::Game::SpriteBatchSize);
 }
 
 void Game::Run()
@@ -41,7 +46,6 @@ void Game::Run()
 		Update(dt);
 		Render();
 	}
-
 }
 
 void Game::LoadAssets()
@@ -57,12 +61,12 @@ void Game::Init()
 {
 	LoadAssets();
 
-	Factory::MakePlayer(m_Entities, GameConstants::Player::startPos);
+	Factory::MakePlayer(m_Entities, Constants::Player::startPos);
 
 	for(int i = 0; i < 10; ++i)
 		Factory::MakeBush(m_Entities, sf::Vector2f(
-			rand() % GameConstants::Game::Width,
-			rand() % GameConstants::Game::Height));
+			rand() % Constants::Game::Width,
+			rand() % Constants::Game::Height));
 }
 
 void Game::HandleInput()
@@ -100,24 +104,8 @@ void Game::Render()
 {
 	m_Window.clear(sf::Color(100, 100, 100));
 
-	// Refactor into a system
-	auto view = m_Entities.view<Position, Sprite>();
-
-	for(const entt::entity entity : view)
-	{
-		const auto& pos = view.get<Position>(entity).pos;
-		const auto id = view.get<Sprite>(entity).id;
-
-		const int x = id % 15;
-		const int y = id / 15;
-		constexpr int w = 16;
-		constexpr int h = 16;
-
-		sf::Transform t;
-		t.translate(pos);
-
-		m_SpriteBatch.Add(t, sf::IntRect(x * w, y * h, w, h));
-	}
+	RenderSystem::RenderBushes(m_Entities, m_SpriteBatch);
+	RenderSystem::RenderPlayers(m_Entities, m_SpriteBatch);
 
 	sf::RenderStates state(&m_ObjectTexture);
 	m_SpriteBatch.draw(m_Window, state);

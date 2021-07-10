@@ -4,7 +4,7 @@
 
 #include "Util/DataTypes.hpp"
 
-namespace GameConstants
+namespace Constants
 {
 	namespace Game
 	{
