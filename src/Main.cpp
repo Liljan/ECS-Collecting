@@ -1,13 +1,9 @@
-
-#include <SFML/Graphics.hpp>
-
-#include <EnTT/entt.hpp>
+#include "Core/Game.hpp"
 
 int main()
 {
-	sf::RenderWindow window;
-
-
+	Game game;
+	game.Run();
 
 	return 0;
 }
