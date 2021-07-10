@@ -3,11 +3,7 @@
 // Switch to fwd declarations?
 #include <EnTT/entt.hpp>
 
-// fwd
-namespace sf
-{
-	Vector2f;
-};
+#include <SFML/System/Vector2.hpp>
 
 class Factory
 {
