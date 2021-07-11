@@ -6,7 +6,7 @@
 #include <Core/Constants.hpp>
 
 // Components
-//#include "Component/Position.hpp"
+#include "Component/Velocity.hpp"
 //#include "Component/Sprite.hpp"
 
 // Prefabs
@@ -14,6 +14,7 @@
 #include "Prefabs/Bush.hpp"
 
 // Systems
+#include "System/Move.hpp"
 #include "System/Render.hpp"
 
 #include <SFML/Window/Event.hpp>
@@ -66,6 +67,14 @@ void Game::Init()
 	for(int i = 0; i < 10; ++i)
 		Factory::MakeBush(m_Entities, 
 			sf::Vector2f(rand() % Constants::Game::Width, rand() % Constants::Game::Height));
+
+	// Temp: Set the velocity of the player
+	{
+		const auto view = m_Entities.view<Velocity>();
+
+		for(auto& [entity, vel] : view.each())
+			vel.veocity.x = vel.speed;
+	}
 }
 
 void Game::HandleInput()
@@ -97,6 +106,7 @@ void Game::HandleInput()
 
 void Game::Update(const float dt)
 {
+	MoveSystem::Move(m_Entities, dt);
 }
 
 void Game::Render()
