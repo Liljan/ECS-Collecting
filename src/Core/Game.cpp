@@ -73,7 +73,7 @@ void Game::Init()
 		const auto view = m_Entities.view<Velocity>();
 
 		for(auto& [entity, vel] : view.each())
-			vel.veocity.x = vel.speed;
+			vel.velocity.x = vel.speed;
 	}
 }
 

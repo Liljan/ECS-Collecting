@@ -4,6 +4,6 @@
 
 struct Velocity
 {
-	sf::Vector2f veocity;
+	sf::Vector2f velocity;
 	float speed;
 };

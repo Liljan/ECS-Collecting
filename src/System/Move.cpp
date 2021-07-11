@@ -8,5 +8,5 @@ void MoveSystem::Move(entt::registry& reg, float dt)
 	const auto view = reg.view<Velocity, Position>();
 
 	for(auto& [entity, vel, pos] : view.each())
-		pos.p += vel.veocity * dt;
+		pos.p += vel.velocity * dt;
 }
