@@ -12,7 +12,7 @@ void RenderSystem::RenderPlayers(entt::registry& reg, SpriteBatch& batch)
 
 	for(const entt::entity entity : view)
 	{
-		const auto& pos = view.get<Position>(entity).pos;
+		const auto& pos = view.get<Position>(entity).p;
 		const auto id = view.get<Sprite>(entity).id;
 
 		const int x = id % 15;
@@ -33,7 +33,7 @@ void RenderSystem::RenderBushes(entt::registry& reg, SpriteBatch& batch)
 
 	for (const entt::entity entity : view)
 	{
-		const auto& pos = view.get<Position>(entity).pos;
+		const auto& pos = view.get<Position>(entity).p;
 		const auto id = view.get<Sprite>(entity).id;
 
 		const int x = id % 15;

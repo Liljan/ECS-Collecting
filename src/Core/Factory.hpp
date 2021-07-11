@@ -8,6 +8,6 @@
 class Factory
 {
 public:
-	static entt::entity MakePlayer(entt::registry& reg, const sf::Vector2f& pos);
+	static entt::entity MakePlayer(entt::registry& reg, const sf::Vector2f& pos, float speed);
 	static entt::entity MakeBush(entt::registry& reg, const sf::Vector2f& pos);
 };

@@ -6,8 +6,8 @@
 #include <Core/Constants.hpp>
 
 // Components
-#include "Component/Position.hpp"
-#include "Component/Sprite.hpp"
+//#include "Component/Position.hpp"
+//#include "Component/Sprite.hpp"
 
 // Prefabs
 #include "Prefabs/Player.hpp"
@@ -61,12 +61,11 @@ void Game::Init()
 {
 	LoadAssets();
 
-	Factory::MakePlayer(m_Entities, Constants::Player::startPos);
+	Factory::MakePlayer(m_Entities, Constants::Player::startPos, Constants::Player::speed);
 
 	for(int i = 0; i < 10; ++i)
-		Factory::MakeBush(m_Entities, sf::Vector2f(
-			rand() % Constants::Game::Width,
-			rand() % Constants::Game::Height));
+		Factory::MakeBush(m_Entities, 
+			sf::Vector2f(rand() % Constants::Game::Width, rand() % Constants::Game::Height));
 }
 
 void Game::HandleInput()
