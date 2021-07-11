@@ -113,6 +113,5 @@ void Game::Render()
 	m_Window.display();
 
 	// Post-frame clean-up
-
 	m_SpriteBatch.Clear();
 }

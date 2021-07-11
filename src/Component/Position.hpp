@@ -4,5 +4,5 @@
 
 struct Position
 {
-	sf::Vector2f pos;
+	sf::Vector2f p;
 };
