@@ -107,6 +107,7 @@ void Game::HandleInput()
 void Game::Update(const float dt)
 {
 	MoveSystem::Move(m_Entities, dt);
+	MoveSystem::Warp(m_Entities, sf::Vector2f(Constants::Game::Width, Constants::Game::Height), sf::Vector2f(16.0f, 16.0f));
 }
 
 void Game::Render()

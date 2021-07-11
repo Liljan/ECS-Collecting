@@ -18,7 +18,7 @@ namespace Constants
 	{
 		constexpr int spriteId = 17;
 		const sf::Vector2f startPos = {150.0f, 200.0f};
-		constexpr float speed = 4.0f;
+		constexpr float speed = -100.0f;
 	}
 
 	namespace Bush
