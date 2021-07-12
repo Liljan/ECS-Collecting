@@ -5,6 +5,7 @@
 
 #include <EnTT/entt.hpp>
 
+#include "Core/InputManager.hpp"
 #include "Graphics/SpriteBatch.hpp"
 
 class Game
@@ -28,6 +29,7 @@ private:
 
 	// Systems
 	sf::RenderWindow m_Window;
+	InputManager m_Input;
 	entt::registry m_Entities;
 
 	SpriteBatch m_SpriteBatch;

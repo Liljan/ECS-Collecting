@@ -75,6 +75,10 @@ void Game::Init()
 		for(auto& [entity, vel] : view.each())
 			vel.velocity.x = vel.speed;
 	}
+
+	// Temp player input definitions
+	m_Input.AddButton(1, sf::Keyboard::Key::Left);
+	m_Input.AddButton(2, sf::Keyboard::Key::Right);
 }
 
 void Game::HandleInput()
@@ -102,6 +106,9 @@ void Game::HandleInput()
 			}
 		}
 	}
+
+	m_Input.Update();
+
 }
 
 void Game::Update(const float dt)

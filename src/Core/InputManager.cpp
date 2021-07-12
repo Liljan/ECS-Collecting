@@ -2,8 +2,16 @@
 
 #include <iostream>
 
-void InputManager::Update(const sf::Window& window)
+void InputManager::Update()
 {
+	// Update buttons	
+	for(const auto& action : m_ButtonActions)
+	{
+		const auto id = action.first;
+		const auto rawInput = action.second;
+
+		m_ButtonCurrentState[id] = sf::Keyboard::isKeyPressed(rawInput);
+	}
 }
 
 bool InputManager::AddButton(uint id, sf::Keyboard::Key rawInput)
@@ -14,7 +22,8 @@ bool InputManager::AddButton(uint id, sf::Keyboard::Key rawInput)
 		return false;
 	}
 
-	m_ButtonActions.emplace(std::make_pair(id, rawInput));
+	m_ButtonActions.emplace(id, rawInput);
+	m_ButtonCurrentState.emplace(id, false);
 	return true;
 }
 
@@ -27,13 +36,14 @@ bool InputManager::RemoveButton(uint id)
 	}
 
 	m_ButtonActions.erase(id);
+	m_ButtonCurrentState.erase(id);
 
 	return true;
 }
 
 bool InputManager::HasButton(uint id) const
 {
-	if(m_ButtonActions.find(id) == m_ButtonActions.end())
+	if(m_ButtonActions.find(id) != m_ButtonActions.end())
 		return true;
 
 	return false;
