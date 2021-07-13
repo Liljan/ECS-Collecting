@@ -3,6 +3,7 @@
 #include "Component/Position.hpp"
 #include "Component/Velocity.hpp"
 #include "Component/Sprite.hpp"
+#include "Component/PlayerInputConfig.hpp"
 
 #include "Prefabs/Player.hpp"
 #include "Prefabs/Bush.hpp"
@@ -17,6 +18,8 @@ entt::entity Factory::MakePlayer(entt::registry& reg, const sf::Vector2f& pos, f
 	reg.emplace<Sprite>(entity, Constants::Player::spriteId);
 	reg.emplace<Position>(entity, pos);
 	reg.emplace<Velocity>(entity, sf::Vector2f(0.0f, 0.0f), speed);
+
+	reg.emplace<PlayerInputConfig>(entity);
 
 	return entity;
 }

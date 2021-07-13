@@ -15,6 +15,9 @@ public:
 	bool AddButton(uint id, sf::Keyboard::Key rawInput);
 	bool RemoveButton(uint id);
 
+	bool IsButtonDown(uint id);
+	bool IsButtonUp(uint id);
+
 private:
 	bool HasButton(uint id) const;
 

@@ -6,8 +6,7 @@
 #include <Core/Constants.hpp>
 
 // Components
-#include "Component/Velocity.hpp"
-//#include "Component/Sprite.hpp"
+#include "Component/PlayerInputConfig.hpp"
 
 // Prefabs
 #include "Prefabs/Player.hpp"
@@ -16,6 +15,7 @@
 // Systems
 #include "System/Move.hpp"
 #include "System/Render.hpp"
+#include "System/PlayerInput.hpp"
 
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/Sprite.hpp>
@@ -68,17 +68,21 @@ void Game::Init()
 		Factory::MakeBush(m_Entities, 
 			sf::Vector2f(rand() % Constants::Game::Width, rand() % Constants::Game::Height));
 
-	// Temp: Set the velocity of the player
+	// Temp player input definitions
 	{
-		const auto view = m_Entities.view<Velocity>();
+		const auto view = m_Entities.view<PlayerInputConfig>();
 
-		for(auto& [entity, vel] : view.each())
-			vel.velocity.x = vel.speed;
+		for(auto& [entity, input] : view.each())
+		{
+			input.left = sf::Keyboard::A;
+			input.right = sf::Keyboard::D;
+			input.up = sf::Keyboard::W;
+			input.down = sf::Keyboard::S;
+			input.action = sf::Keyboard::Space;
+		}			
 	}
 
-	// Temp player input definitions
-	m_Input.AddButton(1, sf::Keyboard::Key::Left);
-	m_Input.AddButton(2, sf::Keyboard::Key::Right);
+	PlayerInputSystem::SetupInput(m_Entities, m_Input);
 }
 
 void Game::HandleInput()
@@ -109,6 +113,7 @@ void Game::HandleInput()
 
 	m_Input.Update();
 
+	PlayerInputSystem::HandleInput(m_Entities, m_Input);
 }
 
 void Game::Update(const float dt)

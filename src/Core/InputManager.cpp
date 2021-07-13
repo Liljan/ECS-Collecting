@@ -41,6 +41,22 @@ bool InputManager::RemoveButton(uint id)
 	return true;
 }
 
+bool InputManager::IsButtonDown(uint id)
+{
+	if(!HasButton(id))
+		return false;
+
+	return m_ButtonCurrentState[id];
+}
+
+bool InputManager::IsButtonUp(uint id)
+{
+	if(!HasButton(id))
+		return true;
+
+	return !m_ButtonCurrentState[id];
+}
+
 bool InputManager::HasButton(uint id) const
 {
 	if(m_ButtonActions.find(id) != m_ButtonActions.end())
